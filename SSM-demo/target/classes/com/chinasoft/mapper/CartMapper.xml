@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.chinasoft.mapper.CartMapper" >
+  <insert id="insertCart" parameterType="com.chinasoft.pojo.Cart">
+		insert into Cart (lineId,uid,makeTime) values (#{lineId},#{uid},#{makeTime})
+	</insert>
+	
+	<select id="selectAll" parameterType="int" resultType="com.chinasoft.pojo.CartDetail">
+		select c.cartId,i.mainPic,c.lineId,l.lineName,l.vehicle,l.teamPrice from cart c,line l,image i where c.lineId=l.lineId and l.imageId=i.imageId and c.uid=#{id}
+	</select>
+	
+	<delete id="deleteCartById" parameterType="int">
+		delete from Cart where cartId=#{id}
+	</delete>
+	
+	<select id="selectByPageNo" parameterType="int" resultType="com.chinasoft.pojo.CartDetail">
+		select c.cartId,i.mainPic,c.lineId,l.lineName,l.vehicle,l.teamPrice from cart c,line l,image i
+		 where c.lineId=l.lineId and l.imageId=i.imageId and c.uid=#{id} limit #{startIndex},#{pageCount}
+	</select>
+	
+	<select id="getCount" resultType="int">
+		select count(*) from cart c,line l,image i where c.lineId=l.lineId and l.imageId=i.imageId and c.uid=#{id}
+	</select>
+</mapper>

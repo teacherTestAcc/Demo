@@ -1,0 +1,58 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.chinasoft.mapper.LineTypeMapper" >
+  <resultMap id="BaseResultMap" type="com.chinasoft.pojo.LineType" >
+    <id column="lineTypeId" property="linetypeid" jdbcType="INTEGER" />
+    <result column="lineTypeName" property="linetypename" jdbcType="VARCHAR" />
+  </resultMap>
+  <sql id="Base_Column_List" >
+    lineTypeId, lineTypeName
+  </sql>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
+    select 
+    <include refid="Base_Column_List" />
+    from linetype
+    where lineTypeId = #{linetypeid,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >
+    delete from linetype
+    where lineTypeId = #{linetypeid,jdbcType=INTEGER}
+  </delete>
+  <insert id="insert" parameterType="com.chinasoft.pojo.LineType" >
+    insert into linetype (lineTypeId, lineTypeName)
+    values (#{linetypeid,jdbcType=INTEGER}, #{linetypename,jdbcType=VARCHAR})
+  </insert>
+  <insert id="insertSelective" parameterType="com.chinasoft.pojo.LineType" >
+    insert into linetype
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="linetypeid != null" >
+        lineTypeId,
+      </if>
+      <if test="linetypename != null" >
+        lineTypeName,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="linetypeid != null" >
+        #{linetypeid,jdbcType=INTEGER},
+      </if>
+      <if test="linetypename != null" >
+        #{linetypename,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.chinasoft.pojo.LineType" >
+    update linetype
+    <set >
+      <if test="linetypename != null" >
+        lineTypeName = #{linetypename,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where lineTypeId = #{linetypeid,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.chinasoft.pojo.LineType" >
+    update linetype
+    set lineTypeName = #{linetypename,jdbcType=VARCHAR}
+    where lineTypeId = #{linetypeid,jdbcType=INTEGER}
+  </update>
+</mapper>
